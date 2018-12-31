@@ -1,0 +1,18 @@
+spring:
+  datasource:
+      username: root
+      password: ldchao
+      url: jdbc:mysql://47.101.199.12:3306/user_story_mapping
+      driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+     hibernate:
+        ddl-auto: none
+     show-sql: false
+     database-platform: org.hibernate.dialect.MySQL5Dialect
+  thymeleaf:
+     mode: LEGACYHTML5
+     cache: false
+
+server:
+  port: 8088
+  connection-timeout: 86400
