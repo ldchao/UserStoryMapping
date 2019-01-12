@@ -2,7 +2,7 @@ spring:
   datasource:
       username: root
       password: ldchao
-      url: jdbc:mysql://47.101.199.12:3306/user_story_mapping
+      url: jdbc:mysql://47.101.199.12:3306/user_story_mapping?characterEncoding=utf8&useSSL=false
       driver-class-name: com.mysql.jdbc.Driver
   jpa:
      hibernate:
