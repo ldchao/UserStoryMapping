@@ -9,18 +9,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by ldchao on 2019/1/12.
+ * Created by ldchao on 2019/1/15.
  */
 @Entity
 @Table(name = "user", schema = "user_story_mapping")
 public class UserEntity {
+    private int id;
     private String username;
     private String password;
-    private String salt;
 
     @Id
-    @Column(name = "username")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -39,16 +49,6 @@ public class UserEntity {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "salt")
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,18 +56,18 @@ public class UserEntity {
 
         UserEntity that = (UserEntity) o;
 
+        if (id != that.id) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (salt != null ? !salt.equals(that.salt) : that.salt != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = username != null ? username.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (salt != null ? salt.hashCode() : 0);
         return result;
     }
 }

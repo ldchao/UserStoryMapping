@@ -9,24 +9,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by ldchao on 2019/1/12.
+ * Created by ldchao on 2019/1/15.
  */
 @Entity
 @Table(name = "map", schema = "user_story_mapping")
 public class MapEntity {
-    private int mid;
+    private int id;
     private String title;
     private String description;
 
     @Id
-    @Column(name = "mid")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getMid() {
-        return mid;
+    public int getId() {
+        return id;
     }
 
-    public void setMid(int mid) {
-        this.mid = mid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
@@ -56,7 +56,7 @@ public class MapEntity {
 
         MapEntity mapEntity = (MapEntity) o;
 
-        if (mid != mapEntity.mid) return false;
+        if (id != mapEntity.id) return false;
         if (title != null ? !title.equals(mapEntity.title) : mapEntity.title != null) return false;
         if (description != null ? !description.equals(mapEntity.description) : mapEntity.description != null)
             return false;
@@ -66,7 +66,7 @@ public class MapEntity {
 
     @Override
     public int hashCode() {
-        int result = mid;
+        int result = id;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;

@@ -10,12 +10,12 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Created by ldchao on 2019/1/12.
+ * Created by ldchao on 2019/1/15.
  */
 @Entity
 @Table(name = "story", schema = "user_story_mapping")
 public class StoryEntity {
-    private int sid;
+    private int id;
     private Integer rid;
     private Integer tid;
     private String title;
@@ -25,14 +25,14 @@ public class StoryEntity {
     private Timestamp createAt;
 
     @Id
-    @Column(name = "sid")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getSid() {
-        return sid;
+    public int getId() {
+        return id;
     }
 
-    public void setSid(int sid) {
-        this.sid = sid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
@@ -112,7 +112,7 @@ public class StoryEntity {
 
         StoryEntity that = (StoryEntity) o;
 
-        if (sid != that.sid) return false;
+        if (id != that.id) return false;
         if (rid != null ? !rid.equals(that.rid) : that.rid != null) return false;
         if (tid != null ? !tid.equals(that.tid) : that.tid != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
@@ -126,7 +126,7 @@ public class StoryEntity {
 
     @Override
     public int hashCode() {
-        int result = sid;
+        int result = id;
         result = 31 * result + (rid != null ? rid.hashCode() : 0);
         result = 31 * result + (tid != null ? tid.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);

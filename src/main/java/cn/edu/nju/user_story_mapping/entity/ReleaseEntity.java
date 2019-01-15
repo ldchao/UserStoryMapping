@@ -10,24 +10,24 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Created by ldchao on 2019/1/12.
+ * Created by ldchao on 2019/1/15.
  */
 @Entity
 @Table(name = "release", schema = "user_story_mapping")
 public class ReleaseEntity {
-    private int rid;
+    private int id;
     private Integer mid;
     private Timestamp date;
 
     @Id
-    @Column(name = "rid")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getRid() {
-        return rid;
+    public int getId() {
+        return id;
     }
 
-    public void setRid(int rid) {
-        this.rid = rid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
@@ -57,7 +57,7 @@ public class ReleaseEntity {
 
         ReleaseEntity that = (ReleaseEntity) o;
 
-        if (rid != that.rid) return false;
+        if (id != that.id) return false;
         if (mid != null ? !mid.equals(that.mid) : that.mid != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
 
@@ -66,7 +66,7 @@ public class ReleaseEntity {
 
     @Override
     public int hashCode() {
-        int result = rid;
+        int result = id;
         result = 31 * result + (mid != null ? mid.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;

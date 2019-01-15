@@ -12,13 +12,10 @@ import java.util.List;
  */
 public interface UserService {
 
-    public UserVO login(String username, String password);
+    UserVO login(String username, String password);
 
-    public String changePassword(String username, String oldPassword, String newPassword);
+    String changePassword(String id, String oldPassword, String newPassword);
 
-    public String addUser(String username, String password);
+    String register(String username, String password);
 
-    public String deleteUser(String username);
-
-    public List<UserVO> getAllUser();
 }

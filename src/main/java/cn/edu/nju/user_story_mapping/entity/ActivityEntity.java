@@ -9,25 +9,25 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by ldchao on 2019/1/12.
+ * Created by ldchao on 2019/1/15.
  */
 @Entity
 @Table(name = "activity", schema = "user_story_mapping")
 public class ActivityEntity {
-    private int aid;
+    private int id;
     private Integer mid;
     private String title;
     private String description;
 
     @Id
-    @Column(name = "aid")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getAid() {
-        return aid;
+    public int getId() {
+        return id;
     }
 
-    public void setAid(int aid) {
-        this.aid = aid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
@@ -67,7 +67,7 @@ public class ActivityEntity {
 
         ActivityEntity that = (ActivityEntity) o;
 
-        if (aid != that.aid) return false;
+        if (id != that.id) return false;
         if (mid != null ? !mid.equals(that.mid) : that.mid != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
@@ -77,7 +77,7 @@ public class ActivityEntity {
 
     @Override
     public int hashCode() {
-        int result = aid;
+        int result = id;
         result = 31 * result + (mid != null ? mid.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);

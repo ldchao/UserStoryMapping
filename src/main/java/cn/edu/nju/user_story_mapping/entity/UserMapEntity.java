@@ -9,13 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by ldchao on 2019/1/12.
+ * Created by ldchao on 2019/1/15.
  */
 @Entity
 @Table(name = "user_map", schema = "user_story_mapping")
 public class UserMapEntity {
     private int id;
-    private String username;
+    private Integer uid;
     private Integer mid;
 
     @Id
@@ -30,13 +30,13 @@ public class UserMapEntity {
     }
 
     @Basic
-    @Column(name = "username")
-    public String getUsername() {
-        return username;
+    @Column(name = "uid")
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     @Basic
@@ -57,7 +57,7 @@ public class UserMapEntity {
         UserMapEntity that = (UserMapEntity) o;
 
         if (id != that.id) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+        if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
         if (mid != null ? !mid.equals(that.mid) : that.mid != null) return false;
 
         return true;
@@ -66,7 +66,7 @@ public class UserMapEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (uid != null ? uid.hashCode() : 0);
         result = 31 * result + (mid != null ? mid.hashCode() : 0);
         return result;
     }
