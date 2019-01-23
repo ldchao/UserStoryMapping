@@ -5,5 +5,5 @@ package cn.edu.nju.user_story_mapping.service;
  */
 public interface ActivityService {
 
-    public String addActivity();
+    String addActivity();
 }
