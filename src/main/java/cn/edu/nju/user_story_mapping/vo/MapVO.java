@@ -8,4 +8,5 @@ public class MapVO {
     private String id;
     private String mapTitle;
     private String mapDesc;
+    private String message;
 }

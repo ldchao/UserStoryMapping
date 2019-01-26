@@ -24,7 +24,7 @@ public class UserController {
     }
 
     //登录
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/user/login")
     public String login(String username, String password, HttpServletRequest request) {
 
         UserVO user = userService.login(username, password);
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     //注销
-    @GetMapping(value = "/logout")
+    @GetMapping(value = "/user/logout")
     public String logout(HttpServletRequest request) {
         request.getSession(false).removeAttribute("User");
         request.getSession(false).invalidate();
@@ -47,14 +47,14 @@ public class UserController {
     }
 
     //修改当前用户密码
-    @PutMapping(value = "/changePassword")
+    @PutMapping(value = "/user/changePassword")
     public String changePassword(HttpServletRequest request, String oldPassword, String newPassword) {
         UserVO userVO = (UserVO) request.getSession(false).getAttribute("User");
         return userService.changePassword(userVO.getId(), oldPassword, newPassword);
     }
 
     //注册
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/user/register")
     public String register(String username, String password) {
         return userService.register(username, password);
     }

@@ -9,4 +9,6 @@ import java.io.Serializable;
  * Created by ldchao on 2019/1/13.
  */
 public interface MapDao extends JpaRepository<MapEntity,Serializable> {
+
+    MapEntity findByTitle(String title);
 }
