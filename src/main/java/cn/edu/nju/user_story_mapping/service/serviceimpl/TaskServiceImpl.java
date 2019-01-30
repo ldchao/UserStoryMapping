@@ -1,0 +1,85 @@
+package cn.edu.nju.user_story_mapping.service.serviceimpl;
+
+import cn.edu.nju.user_story_mapping.dao.ActivityDao;
+import cn.edu.nju.user_story_mapping.dao.StoryDao;
+import cn.edu.nju.user_story_mapping.dao.TaskDao;
+import cn.edu.nju.user_story_mapping.entity.ActivityEntity;
+import cn.edu.nju.user_story_mapping.entity.StoryEntity;
+import cn.edu.nju.user_story_mapping.entity.TaskEntity;
+import cn.edu.nju.user_story_mapping.service.TaskService;
+import cn.edu.nju.user_story_mapping.vo.TaskVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class TaskServiceImpl implements TaskService {
+
+    @Autowired
+    private ActivityDao activityDao;
+
+    @Autowired
+    private TaskDao taskDao;
+
+    @Autowired
+    private StoryDao storyDao;
+
+    @Override
+    public TaskVO addTask(String aid, String title, String desc) {
+        ActivityEntity activity = activityDao.findOne(aid);
+        TaskVO taskVO = new TaskVO();
+        if (activity == null) {
+            taskVO.setCode(0);
+            return taskVO;
+        }
+
+        TaskEntity taskTemp = new TaskEntity();
+        taskTemp.setAid(Integer.parseInt(aid));
+        taskTemp.setTitle(title);
+        taskTemp.setDescription(desc);
+        taskDao.save(taskTemp);
+
+        TaskEntity task = taskDao.findFirstByAidAndTitleAndDescription(aid, title, desc);
+        if (task == null) {
+            taskVO.setCode(0);
+            return taskVO;
+        }
+
+        taskVO = new TaskVO(task);
+        taskVO.setTid(task.getId() + "");
+        taskVO.setCode(1);
+        return taskVO;
+    }
+
+    @Override
+    public List<TaskVO> getTaskList(String aid) {
+        List<TaskVO> taskVOS = new ArrayList<>();
+        List<TaskEntity> tasks = taskDao.findByAid(aid);
+        if (tasks == null || tasks.size() == 0) {
+            return taskVOS;
+        }
+        for (TaskEntity task : tasks) {
+            TaskVO taskVO = new TaskVO(task);
+            taskVO.setTid(task.getId() + "");
+            taskVO.setCode(1);
+            taskVOS.add(taskVO);
+        }
+        return taskVOS;
+    }
+
+    @Override
+    public String deleteTask(String tid) {
+        TaskEntity task = taskDao.findOne(tid);
+        if (task == null) {
+            return "fail";
+        }
+        List<StoryEntity> stories = storyDao.findByTid(tid);
+        if (stories != null) {
+            storyDao.delete(stories);
+        }
+        taskDao.delete(task);
+        return null;
+    }
+}
