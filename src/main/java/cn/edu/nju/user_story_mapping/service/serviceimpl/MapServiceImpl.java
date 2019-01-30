@@ -2,12 +2,15 @@ package cn.edu.nju.user_story_mapping.service.serviceimpl;
 
 import cn.edu.nju.user_story_mapping.dao.ActivityDao;
 import cn.edu.nju.user_story_mapping.dao.MapDao;
+import cn.edu.nju.user_story_mapping.dao.ReleaseDao;
 import cn.edu.nju.user_story_mapping.dao.UserMapDao;
 import cn.edu.nju.user_story_mapping.entity.ActivityEntity;
 import cn.edu.nju.user_story_mapping.entity.MapEntity;
+import cn.edu.nju.user_story_mapping.entity.ReleaseEntity;
 import cn.edu.nju.user_story_mapping.entity.UserMapEntity;
 import cn.edu.nju.user_story_mapping.service.ActivityService;
 import cn.edu.nju.user_story_mapping.service.MapService;
+import cn.edu.nju.user_story_mapping.service.ReleaseService;
 import cn.edu.nju.user_story_mapping.vo.MapVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,9 @@ public class MapServiceImpl implements MapService {
 
     @Autowired
     private ActivityDao activityDao;
+
+    @Autowired
+    private ReleaseDao releaseDao;
 
     @Override
     public MapVO addMap(String userId, String mapTitle, String mapDesc) {
@@ -90,6 +96,14 @@ public class MapServiceImpl implements MapService {
             ActivityService activityService = new ActivityServiceImpl();
             for (ActivityEntity activity : activities) {
                 activityService.deleteActivity(activity.getId() + "");
+            }
+        }
+
+        List<ReleaseEntity> releases = releaseDao.findByMid(mapId);
+        if (releases != null) {
+            ReleaseService releaseService = new ReleaseServiceImpl();
+            for (ReleaseEntity release : releases) {
+                releaseService.deleteRelease(release.getId() + "");
             }
         }
 
