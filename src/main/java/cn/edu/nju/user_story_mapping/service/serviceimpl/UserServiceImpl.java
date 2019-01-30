@@ -25,8 +25,10 @@ public class UserServiceImpl implements UserService {
             if (password.equals(user.getPassword())) {
                 // 获取上次登录信息
                 userVO.setUsername(username);
+                userVO.setCode(1);
                 userVO.setLoginMessage("success");
             } else {
+                userVO.setCode(0);
                 userVO.setLoginMessage("wrong_password");
             }
         }
