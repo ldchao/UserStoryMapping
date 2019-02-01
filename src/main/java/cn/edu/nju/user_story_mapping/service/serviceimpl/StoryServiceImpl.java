@@ -108,6 +108,12 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public StoryVO updateStory(String sid, String title, String desc, int points, String state, String tid, String rid) {
+        StoryEntity story = storyDao.findOne(sid);
+        if (story == null) {
+            StoryVO storyVO = new StoryVO();
+            storyVO.setCode(0);
+            return storyVO;
+        }
         storyDao.delete(sid);
         return this.addStory(rid, tid, title, desc, state, points);
     }
@@ -115,7 +121,7 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public String deleteStory(String sid) {
         StoryEntity story = storyDao.findOne(sid);
-        if (sid == null) {
+        if (story == null) {
             return "fail";
         }
         storyDao.delete(sid);
