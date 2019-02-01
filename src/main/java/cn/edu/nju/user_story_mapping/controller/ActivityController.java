@@ -5,6 +5,7 @@ import cn.edu.nju.user_story_mapping.service.TaskService;
 import cn.edu.nju.user_story_mapping.vo.ActivityVO;
 import cn.edu.nju.user_story_mapping.vo.TaskVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class ActivityController {
     private final ActivityService activityService;
 

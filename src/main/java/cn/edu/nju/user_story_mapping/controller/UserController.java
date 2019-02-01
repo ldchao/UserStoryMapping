@@ -3,17 +3,16 @@ package cn.edu.nju.user_story_mapping.controller;
 import cn.edu.nju.user_story_mapping.service.UserService;
 import cn.edu.nju.user_story_mapping.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * Created by ldchao on 2017/10/15.
  */
 @RestController
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;
@@ -35,6 +34,7 @@ public class UserController {
             request.getSession(true);
             request.getSession().setAttribute("User", user);
         }
+        System.out.println("             login happens!"+new Date());
         return user.getLoginMessage();
     }
 
