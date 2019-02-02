@@ -13,7 +13,7 @@ public class TaskVO {
     private int code;
 
     public TaskVO() {
-
+        this.code = 0;
     }
 
     public TaskVO(TaskEntity taskEntity) {
@@ -21,5 +21,6 @@ public class TaskVO {
         this.tid = taskEntity.getId();
         this.title = taskEntity.getTitle();
         this.desc = taskEntity.getDescription();
+        this.code = 1;
     }
 }

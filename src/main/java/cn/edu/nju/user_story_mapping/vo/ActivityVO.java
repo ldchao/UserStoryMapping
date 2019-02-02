@@ -12,15 +12,16 @@ public class ActivityVO {
     private String desc;
     private int code;
 
-    public ActivityVO(){
+    public ActivityVO() {
         this.code = 0;
     }
 
     public ActivityVO(ActivityEntity activityEntity) {
-        this.aid =activityEntity.getId();
+        this.aid = activityEntity.getId();
         this.mid = activityEntity.getMid();
         this.title = activityEntity.getTitle();
         this.desc = activityEntity.getDescription();
+        this.code = 1;
     }
 
 }

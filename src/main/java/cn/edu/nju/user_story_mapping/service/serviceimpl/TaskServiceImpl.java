@@ -68,6 +68,6 @@ public class TaskServiceImpl implements TaskService {
             storyDao.delete(stories);
         }
         taskDao.delete(task);
-        return null;
+        return "success";
     }
 }
