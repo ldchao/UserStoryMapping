@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface StoryService {
 
-    StoryVO addStory(String rid, String tid, String title, String desc, String state, int points);
+    StoryVO addStory(int rid, int tid, String title, String desc, String state, int points);
 
-    List<StoryVO> getStoryByTask(String tid);
+    List<StoryVO> getStoryByTask(int tid);
 
-    List<StoryVO> getStoryByRelease(String rid);
+    List<StoryVO> getStoryByRelease(int rid);
 
-    StoryVO updateStory(String sid, String title, String desc, int points, String state, String tid, String rid);
+    StoryVO updateStory(int sid, int tid, int rid, String title, String desc, int points, String state);
 
-    String deleteStory(String sid);
+    String deleteStory(int sid);
 }

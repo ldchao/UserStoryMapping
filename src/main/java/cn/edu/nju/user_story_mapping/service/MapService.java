@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public interface MapService {
 
-    MapVO addMap(String userId, String mapTitle, String mapDesc);
+    MapVO addMap(int userId, String mapTitle, String mapDesc);
 
-    ArrayList<MapVO> getMapList(String userId);
+    ArrayList<MapVO> getMapList(int userId);
 
-    String deleteMap(String mapId);
+    String deleteMap(int mapId);
 }

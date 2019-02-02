@@ -11,5 +11,4 @@ import java.util.List;
  */
 public interface MapDao extends JpaRepository<MapEntity,Serializable> {
 
-    MapEntity findFirstByTitleAndDescription(String title,String desc);
 }

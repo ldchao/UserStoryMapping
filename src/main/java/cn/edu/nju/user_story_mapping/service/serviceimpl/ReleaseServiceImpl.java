@@ -28,48 +28,35 @@ public class ReleaseServiceImpl implements ReleaseService {
     private StoryDao storyDao;
 
     @Override
-    public ReleaseVO addRelease(Timestamp date, String mid) {
+    public ReleaseVO addRelease(int mid, Timestamp date) {
         MapEntity map = mapDao.findOne(mid);
-        ReleaseVO releaseVO = new ReleaseVO();
         if (map == null) {
-            releaseVO.setCode(0);
-            return releaseVO;
+            return new ReleaseVO();
         }
 
-        ReleaseEntity releaseTemp = new ReleaseEntity();
-        releaseTemp.setDate(date);
-        releaseTemp.setMid(Integer.parseInt(mid));
-        releaseDao.save(releaseTemp);
+        ReleaseEntity release = new ReleaseEntity();
+        release.setDate(date);
+        release.setMid(mid);
+        releaseDao.save(release);
 
-        ReleaseEntity release = releaseDao.findFirstByMidAndDate(mid, date);
-        if (release == null) {
-            releaseVO.setCode(0);
-            return releaseVO;
-        }
-        releaseVO = new ReleaseVO(release);
-        releaseVO.setRid(release.getId() + "");
-        releaseVO.setCode(1);
-        return releaseVO;
+        return new ReleaseVO(release);
     }
 
     @Override
-    public List<ReleaseVO> getReleaseList(String mid) {
+    public List<ReleaseVO> getReleaseList(int mid) {
         List<ReleaseVO> releaseVOS = new ArrayList<>();
         List<ReleaseEntity> releases = releaseDao.findByMid(mid);
         if (releases == null || releases.size() == 0) {
             return releaseVOS;
         }
         for (ReleaseEntity releaseEntity : releases) {
-            ReleaseVO releaseVO = new ReleaseVO(releaseEntity);
-            releaseVO.setRid(releaseEntity.getId() + "");
-            releaseVO.setCode(1);
-            releaseVOS.add(releaseVO);
+            releaseVOS.add(new ReleaseVO(releaseEntity));
         }
         return releaseVOS;
     }
 
     @Override
-    public String deleteRelease(String rid) {
+    public String deleteRelease(int rid) {
         ReleaseEntity release = releaseDao.findOne(rid);
         if (release == null) {
             return "fail";

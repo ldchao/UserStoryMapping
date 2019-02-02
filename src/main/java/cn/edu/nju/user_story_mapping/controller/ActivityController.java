@@ -23,17 +23,17 @@ public class ActivityController {
     }
 
     @PostMapping(value = "/activity/add_activity")
-    public ActivityVO addActivity(String mid, String title, String desc) {
+    public ActivityVO addActivity(int mid, String title, String desc) {
         return activityService.addActivity(mid, title, desc);
     }
 
     @GetMapping(value = "/activity/get_activity")
-    public List<ActivityVO> getActivityList(String mid) {
+    public List<ActivityVO> getActivityList(int mid) {
         return activityService.getActivityList(mid);
     }
 
     @PostMapping(value = "/activity/delete_activity")
-    public String deleteActivity(String aid) {
+    public String deleteActivity(int aid) {
         return activityService.deleteActivity(aid);
     }
 }

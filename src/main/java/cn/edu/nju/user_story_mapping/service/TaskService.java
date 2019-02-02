@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface TaskService {
 
-    TaskVO addTask(String aid, String title, String desc);
+    TaskVO addTask(int aid, String title, String desc);
 
-    List<TaskVO> getTaskList(String aid);
+    List<TaskVO> getTaskList(int aid);
 
-    String deleteTask(String tid);
+    String deleteTask(int tid);
 }

@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class TaskVO {
 
-    private String aid;
-    private String tid;
+    private int aid;
+    private int tid;
     private String title;
     private String desc;
     private int code;
@@ -17,7 +17,8 @@ public class TaskVO {
     }
 
     public TaskVO(TaskEntity taskEntity) {
-        this.aid = taskEntity.getAid() + "";
+        this.aid = taskEntity.getAid();
+        this.tid = taskEntity.getId();
         this.title = taskEntity.getTitle();
         this.desc = taskEntity.getDescription();
     }

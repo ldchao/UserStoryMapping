@@ -34,39 +34,30 @@ public class StoryServiceImpl implements StoryService {
     private StoryDao storyDao;
 
     @Override
-    public StoryVO addStory(String rid, String tid, String title, String desc, String state, int points) {
+    public StoryVO addStory(int rid, int tid, String title, String desc, String state, int points) {
         StoryVO storyVO = new StoryVO();
-        StoryEntity storyTemp = new StoryEntity();
+        StoryEntity story = new StoryEntity();
         ReleaseEntity release = releaseDao.findOne(rid);
         TaskEntity task = taskDao.findOne(tid);
-        ActivityEntity activity = activityDao.findOne(task.getAid() + "");
+        ActivityEntity activity = activityDao.findOne(task.getAid());
         if (!activity.getMid().equals(release.getMid())) {
-            storyVO.setCode(0);
-            return storyVO;
-        }
-        storyTemp.setRid(Integer.parseInt(rid));
-        storyTemp.setTid(Integer.parseInt(tid));
-        storyTemp.setTitle(title);
-        storyTemp.setDescription(desc);
-        storyTemp.setState(state);
-        storyTemp.setStoryPoints(points);
-        storyTemp.setCreateAt(new Timestamp(new Date().getTime()));
-
-        storyDao.save(storyTemp);
-        StoryEntity story = storyDao.findFirstByTidAndRidAndTitleAndDescription(tid, rid, title, desc);
-        if (story == null) {
-            storyVO.setCode(0);
             return storyVO;
         }
 
-        storyVO = new StoryVO(story);
-        storyVO.setSid(story.getId() + "");
-        storyVO.setCode(1);
-        return storyVO;
+        story.setRid(rid);
+        story.setTid(tid);
+        story.setTitle(title);
+        story.setDescription(desc);
+        story.setState(state);
+        story.setStoryPoints(points);
+        story.setCreateAt(new Timestamp(new Date().getTime()));
+        storyDao.save(story);
+
+        return new StoryVO(story);
     }
 
     @Override
-    public List<StoryVO> getStoryByTask(String tid) {
+    public List<StoryVO> getStoryByTask(int tid) {
         List<StoryVO> storyVOS = new ArrayList<>();
         TaskEntity task = taskDao.findOne(tid);
         if (task == null) {
@@ -81,7 +72,7 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
-    public List<StoryVO> getStoryByRelease(String rid) {
+    public List<StoryVO> getStoryByRelease(int rid) {
         List<StoryVO> storyVOS = new ArrayList<>();
         ReleaseEntity release = releaseDao.findOne(rid);
         if (release == null) {
@@ -95,31 +86,26 @@ public class StoryServiceImpl implements StoryService {
         return this.EntitiesToVOs(stories);
     }
 
-    private List<StoryVO> EntitiesToVOs(List<StoryEntity> storiss) {
+    private List<StoryVO> EntitiesToVOs(List<StoryEntity> stories) {
         List<StoryVO> storyVOS = new ArrayList<>();
-        for (StoryEntity story : storiss) {
-            StoryVO storyVO = new StoryVO(story);
-            storyVO.setSid(story.getId() + "");
-            storyVO.setCode(1);
-            storyVOS.add(storyVO);
+        for (StoryEntity story : stories) {
+            storyVOS.add(new StoryVO(story));
         }
         return storyVOS;
     }
 
     @Override
-    public StoryVO updateStory(String sid, String title, String desc, int points, String state, String tid, String rid) {
+    public StoryVO updateStory(int sid, int tid, int rid, String title, String desc, int points, String state) {
         StoryEntity story = storyDao.findOne(sid);
         if (story == null) {
-            StoryVO storyVO = new StoryVO();
-            storyVO.setCode(0);
-            return storyVO;
+            return new StoryVO();
         }
         storyDao.delete(sid);
         return this.addStory(rid, tid, title, desc, state, points);
     }
 
     @Override
-    public String deleteStory(String sid) {
+    public String deleteStory(int sid) {
         StoryEntity story = storyDao.findOne(sid);
         if (story == null) {
             return "fail";

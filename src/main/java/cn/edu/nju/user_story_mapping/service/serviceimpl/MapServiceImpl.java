@@ -1,9 +1,6 @@
 package cn.edu.nju.user_story_mapping.service.serviceimpl;
 
-import cn.edu.nju.user_story_mapping.dao.ActivityDao;
-import cn.edu.nju.user_story_mapping.dao.MapDao;
-import cn.edu.nju.user_story_mapping.dao.ReleaseDao;
-import cn.edu.nju.user_story_mapping.dao.UserMapDao;
+import cn.edu.nju.user_story_mapping.dao.*;
 import cn.edu.nju.user_story_mapping.entity.ActivityEntity;
 import cn.edu.nju.user_story_mapping.entity.MapEntity;
 import cn.edu.nju.user_story_mapping.entity.ReleaseEntity;
@@ -25,6 +22,9 @@ public class MapServiceImpl implements MapService {
     private MapDao mapDao;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private UserMapDao userMapDao;
 
     @Autowired
@@ -34,33 +34,26 @@ public class MapServiceImpl implements MapService {
     private ReleaseDao releaseDao;
 
     @Override
-    public MapVO addMap(String userId, String mapTitle, String mapDesc) {
-        MapEntity mapTemp = new MapEntity();
-        mapTemp.setDescription(mapDesc);
-        mapTemp.setTitle(mapTitle);
-        mapDao.save(mapTemp);
-
-        MapEntity map = mapDao.findFirstByTitleAndDescription(mapTitle, mapDesc);
-        MapVO mapVO = new MapVO();
-        if (map == null) {
-            mapVO.setCode(0);
-            return mapVO;
+    public MapVO addMap(int userId, String mapTitle, String mapDesc) {
+        if (userDao.findOne(userId) == null) {
+            return new MapVO();
         }
 
-        int mapId = map.getId();
+        MapEntity map = new MapEntity();
+        map.setDescription(mapDesc);
+        map.setTitle(mapTitle);
+        mapDao.save(map);
+
         UserMapEntity userMap = new UserMapEntity();
-        userMap.setMid(mapId);
-        userMap.setUid(Integer.parseInt(userId));
+        userMap.setMid(map.getId());
+        userMap.setUid(userId);
         userMapDao.save(userMap);
 
-        mapVO = new MapVO(map);
-        mapVO.setId(map.getId() + "");
-        mapVO.setCode(1);
-        return mapVO;
+        return new MapVO(map);
     }
 
     @Override
-    public ArrayList<MapVO> getMapList(String userId) {
+    public ArrayList<MapVO> getMapList(int userId) {
         List<UserMapEntity> userMaps = userMapDao.findByUid(userId);
         ArrayList<MapVO> mapVOs = new ArrayList<>();
         for (UserMapEntity userMap : userMaps) {
@@ -70,7 +63,6 @@ public class MapServiceImpl implements MapService {
                 continue;
             }
             MapVO mapVO = new MapVO(map);
-            mapVO.setId(mapId + "");
             mapVO.setCode(1);
             mapVOs.add(mapVO);
         }
@@ -78,7 +70,7 @@ public class MapServiceImpl implements MapService {
     }
 
     @Override
-    public String deleteMap(String mapId) {
+    public String deleteMap(int mapId) {
         MapEntity map = mapDao.findOne(mapId);
         if (map == null) {
             return "fail";
@@ -95,7 +87,7 @@ public class MapServiceImpl implements MapService {
         if (activities != null) {
             ActivityService activityService = new ActivityServiceImpl();
             for (ActivityEntity activity : activities) {
-                activityService.deleteActivity(activity.getId() + "");
+                activityService.deleteActivity(activity.getId());
             }
         }
 
@@ -103,7 +95,7 @@ public class MapServiceImpl implements MapService {
         if (releases != null) {
             ReleaseService releaseService = new ReleaseServiceImpl();
             for (ReleaseEntity release : releases) {
-                releaseService.deleteRelease(release.getId() + "");
+                releaseService.deleteRelease(release.getId());
             }
         }
 

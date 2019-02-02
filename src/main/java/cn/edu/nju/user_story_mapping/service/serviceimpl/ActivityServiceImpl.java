@@ -30,48 +30,35 @@ public class ActivityServiceImpl implements ActivityService {
     TaskDao taskDao;
 
     @Override
-    public ActivityVO addActivity(String mid, String title, String desc) {
+    public ActivityVO addActivity(int mid, String title, String desc) {
         MapEntity map = mapDao.findOne(mid);
-        ActivityVO activityVO = new ActivityVO();
         if (map == null) {
-            activityVO.setCode(0);
-            return activityVO;
+            return new ActivityVO();
         }
-        ActivityEntity activityTemp = new ActivityEntity();
-        activityTemp.setMid(Integer.parseInt(mid));
-        activityTemp.setTitle(title);
-        activityTemp.setDescription(desc);
-        activityDao.save(activityTemp);
+        ActivityEntity activity = new ActivityEntity();
+        activity.setMid(mid);
+        activity.setTitle(title);
+        activity.setDescription(desc);
+        activityDao.save(activity);
 
-        ActivityEntity activity = activityDao.findFirstByMidAndTitleAndDescription(mid, title, desc);
-        if (activity == null) {
-            activityVO.setCode(0);
-            return activityVO;
-        }
-        activityVO = new ActivityVO(activity);
-        activityVO.setAid(activity.getId() + "");
-        activityVO.setCode(1);
-        return activityVO;
+        return new ActivityVO(activity);
     }
 
     @Override
-    public List<ActivityVO> getActivityList(String mid) {
+    public List<ActivityVO> getActivityList(int mid) {
         List<ActivityEntity> activities = activityDao.findByMid(mid);
         ArrayList<ActivityVO> activityVOS = new ArrayList<>();
         if (activities == null || activities.size() == 0) {
             return activityVOS;
         }
         for (ActivityEntity activity : activities) {
-            ActivityVO activityVO = new ActivityVO(activity);
-            activityVO.setAid(activity.getId() + "");
-            activityVO.setCode(1);
-            activityVOS.add(activityVO);
+            activityVOS.add(new ActivityVO(activity));
         }
         return activityVOS;
     }
 
     @Override
-    public String deleteActivity(String aid) {
+    public String deleteActivity(int aid) {
         ActivityEntity activity = activityDao.findOne(aid);
         if (activity == null) {
             return "fail";
@@ -80,7 +67,7 @@ public class ActivityServiceImpl implements ActivityService {
         if (tasks != null) {
             TaskService taskService = new TaskServiceImpl();
             for (TaskEntity task : tasks) {
-                taskService.deleteTask(task.getId()+"");
+                taskService.deleteTask(task.getId());
             }
             taskDao.delete(tasks);
         }

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserMapDao extends JpaRepository<UserMapEntity,Serializable> {
 
-    List<UserMapEntity> findByUid(String uid);
+    List<UserMapEntity> findByUid(int uid);
 
-    List<UserMapEntity> findByMid(String mid);
+    List<UserMapEntity> findByMid(int mid);
 }

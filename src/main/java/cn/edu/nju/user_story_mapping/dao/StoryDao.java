@@ -10,10 +10,7 @@ import java.util.List;
  * Created by ldchao on 2019/1/13.
  */
 public interface StoryDao extends JpaRepository<StoryEntity, Serializable> {
+    List<StoryEntity> findByTid(int tid);
 
-    StoryEntity findFirstByTidAndRidAndTitleAndDescription(String tid, String rid, String title, String desc);
-
-    List<StoryEntity> findByTid(String tid);
-
-    List<StoryEntity> findByRid(String rid);
+    List<StoryEntity> findByRid(int rid);
 }

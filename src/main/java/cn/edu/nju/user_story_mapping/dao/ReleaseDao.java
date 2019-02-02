@@ -12,7 +12,5 @@ import java.util.List;
  */
 public interface ReleaseDao extends JpaRepository<ReleaseEntity,Serializable> {
 
-    ReleaseEntity findFirstByMidAndDate(String mid, Timestamp date);
-
-    List<ReleaseEntity> findByMid(String mid);
+    List<ReleaseEntity> findByMid(int mid);
 }

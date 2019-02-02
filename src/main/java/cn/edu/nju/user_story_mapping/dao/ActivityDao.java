@@ -11,7 +11,5 @@ import java.util.List;
  */
 public interface ActivityDao extends JpaRepository<ActivityEntity, Serializable> {
 
-    ActivityEntity findFirstByMidAndTitleAndDescription(String mid, String title, String desc);
-
-    List<ActivityEntity> findByMid(String mid);
+    List<ActivityEntity> findByMid(int mid);
 }

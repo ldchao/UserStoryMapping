@@ -9,9 +9,9 @@ import java.sql.Timestamp;
 @Data
 public class StoryVO {
 
-    private String sid;
-    private String tid;
-    private String rid;
+    private int sid;
+    private int tid;
+    private int rid;
     private String title;
     private String desc;
     private int points;
@@ -20,12 +20,13 @@ public class StoryVO {
     private int code;
 
     public StoryVO() {
-
+        this.code = 0;
     }
 
     public StoryVO(StoryEntity storyEntity) {
-        this.tid = storyEntity.getTid()+"";
-        this.rid = storyEntity.getRid()+"";
+        this.sid = storyEntity.getId();
+        this.tid = storyEntity.getTid();
+        this.rid = storyEntity.getRid();
         this.title = storyEntity.getTitle();
         this.desc = storyEntity.getDescription();
         this.points = storyEntity.getStoryPoints();

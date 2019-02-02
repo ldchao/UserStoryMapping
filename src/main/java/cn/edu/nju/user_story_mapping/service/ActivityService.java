@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface ActivityService {
 
-    ActivityVO addActivity(String mid, String title, String desc);
+    ActivityVO addActivity(int mid, String title, String desc);
 
-    List<ActivityVO> getActivityList(String mid);
+    List<ActivityVO> getActivityList(int mid);
 
-    String deleteActivity(String aid);
+    String deleteActivity(int aid);
 }

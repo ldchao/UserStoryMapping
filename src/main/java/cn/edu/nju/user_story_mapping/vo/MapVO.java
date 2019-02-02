@@ -7,17 +7,19 @@ import lombok.Data;
 @Data
 public class MapVO {
 
-    private String id;
+    private int id;
     private String mapTitle;
     private String mapDesc;
     private int code;
 
     public MapVO(){
-
+        this.code = 0;
     }
 
     public MapVO(MapEntity mapEntity) {
+        this.id = mapEntity.getId();
         this.mapTitle = mapEntity.getTitle();
         this.mapDesc = mapEntity.getDescription();
+        this.code = 1;
     }
 }

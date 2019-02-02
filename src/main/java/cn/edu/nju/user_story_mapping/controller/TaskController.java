@@ -24,17 +24,17 @@ public class TaskController {
     }
 
     @PostMapping(value = "/task/add_task")
-    public TaskVO addTask(String aid, String title, String desc) {
+    public TaskVO addTask(int aid, String title, String desc) {
         return taskService.addTask(aid, title, desc);
     }
 
     @GetMapping(value = "/task/get_task")
-    public List<TaskVO> getTaskList(String aid) {
+    public List<TaskVO> getTaskList(int aid) {
         return taskService.getTaskList(aid);
     }
 
     @PostMapping(value = "/task/delete_task")
-    public String deleteTask(String tid) {
+    public String deleteTask(int tid) {
         return taskService.deleteTask(tid);
     }
 }

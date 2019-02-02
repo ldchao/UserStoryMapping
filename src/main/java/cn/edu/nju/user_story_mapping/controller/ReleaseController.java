@@ -17,22 +17,22 @@ public class ReleaseController {
     private final ReleaseService releaseService;
 
     @Autowired
-    public ReleaseController(ReleaseService releaseService){
+    public ReleaseController(ReleaseService releaseService) {
         this.releaseService = releaseService;
     }
 
-    @PostMapping(value="/release/add_release")
-    public ReleaseVO addRelease(Timestamp date, String mid){
-        return releaseService.addRelease(date,mid);
+    @PostMapping(value = "/release/add_release")
+    public ReleaseVO addRelease(Timestamp date, int mid) {
+        return releaseService.addRelease(mid, date);
     }
 
-    @GetMapping(value="/release/get_release")
-    public List<ReleaseVO> getReleaseList(String mid){
+    @GetMapping(value = "/release/get_release")
+    public List<ReleaseVO> getReleaseList(int mid) {
         return releaseService.getReleaseList(mid);
     }
 
-    @PostMapping(value="/release/delete_release")
-    public String deleteRelease(String rid){
+    @PostMapping(value = "/release/delete_release")
+    public String deleteRelease(int rid) {
         return releaseService.deleteRelease(rid);
     }
 }

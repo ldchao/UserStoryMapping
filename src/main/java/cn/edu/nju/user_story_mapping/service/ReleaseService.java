@@ -1,6 +1,5 @@
 package cn.edu.nju.user_story_mapping.service;
 
-import cn.edu.nju.user_story_mapping.vo.ActivityVO;
 import cn.edu.nju.user_story_mapping.vo.ReleaseVO;
 
 import java.sql.Timestamp;
@@ -11,9 +10,9 @@ import java.util.List;
  */
 public interface ReleaseService {
 
-    ReleaseVO addRelease(Timestamp date, String mid);
+    ReleaseVO addRelease(int mid, Timestamp date);
 
-    List<ReleaseVO> getReleaseList(String mid);
+    List<ReleaseVO> getReleaseList(int mid);
 
-    String deleteRelease(String rid);
+    String deleteRelease(int rid);
 }

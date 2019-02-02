@@ -27,7 +27,7 @@ public class TaskServiceImpl implements TaskService {
     private StoryDao storyDao;
 
     @Override
-    public TaskVO addTask(String aid, String title, String desc) {
+    public TaskVO addTask(int aid, String title, String desc) {
         ActivityEntity activity = activityDao.findOne(aid);
         TaskVO taskVO = new TaskVO();
         if (activity == null) {
@@ -35,42 +35,30 @@ public class TaskServiceImpl implements TaskService {
             return taskVO;
         }
 
-        TaskEntity taskTemp = new TaskEntity();
-        taskTemp.setAid(Integer.parseInt(aid));
-        taskTemp.setTitle(title);
-        taskTemp.setDescription(desc);
-        taskDao.save(taskTemp);
+        TaskEntity task = new TaskEntity();
+        task.setAid(aid);
+        task.setTitle(title);
+        task.setDescription(desc);
+        taskDao.save(task);
 
-        TaskEntity task = taskDao.findFirstByAidAndTitleAndDescription(aid, title, desc);
-        if (task == null) {
-            taskVO.setCode(0);
-            return taskVO;
-        }
-
-        taskVO = new TaskVO(task);
-        taskVO.setTid(task.getId() + "");
-        taskVO.setCode(1);
-        return taskVO;
+        return new TaskVO(task);
     }
 
     @Override
-    public List<TaskVO> getTaskList(String aid) {
+    public List<TaskVO> getTaskList(int aid) {
         List<TaskVO> taskVOS = new ArrayList<>();
         List<TaskEntity> tasks = taskDao.findByAid(aid);
         if (tasks == null || tasks.size() == 0) {
             return taskVOS;
         }
         for (TaskEntity task : tasks) {
-            TaskVO taskVO = new TaskVO(task);
-            taskVO.setTid(task.getId() + "");
-            taskVO.setCode(1);
-            taskVOS.add(taskVO);
+            taskVOS.add(new TaskVO(task));
         }
         return taskVOS;
     }
 
     @Override
-    public String deleteTask(String tid) {
+    public String deleteTask(int tid) {
         TaskEntity task = taskDao.findOne(tid);
         if (task == null) {
             return "fail";

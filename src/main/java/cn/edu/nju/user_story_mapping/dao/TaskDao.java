@@ -11,8 +11,6 @@ import java.util.List;
  */
 public interface TaskDao extends JpaRepository<TaskEntity, Serializable> {
 
-    TaskEntity findFirstByAidAndTitleAndDescription(String aid, String title, String desc);
-
-    List<TaskEntity> findByAid(String aid);
+    List<TaskEntity> findByAid(int aid);
 
 }
