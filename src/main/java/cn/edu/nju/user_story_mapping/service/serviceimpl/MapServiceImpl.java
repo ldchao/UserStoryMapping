@@ -84,7 +84,7 @@ public class MapServiceImpl implements MapService {
         }
 
         List<ActivityEntity> activities = activityDao.findByMid(mapId);
-        if (activities != null) {
+        if (activities != null && activities.size() != 0) {
             ActivityService activityService = new ActivityServiceImpl();
             for (ActivityEntity activity : activities) {
                 activityService.deleteActivity(activity.getId());
@@ -92,7 +92,7 @@ public class MapServiceImpl implements MapService {
         }
 
         List<ReleaseEntity> releases = releaseDao.findByMid(mapId);
-        if (releases != null) {
+        if (releases != null && releases.size() != 0) {
             ReleaseService releaseService = new ReleaseServiceImpl();
             for (ReleaseEntity release : releases) {
                 releaseService.deleteRelease(release.getId());

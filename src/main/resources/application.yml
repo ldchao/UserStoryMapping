@@ -7,7 +7,7 @@ spring:
   jpa:
      hibernate:
         ddl-auto: none
-     show-sql: false
+     show-sql: true
      database-platform: org.hibernate.dialect.MySQL5Dialect
   thymeleaf:
      mode: LEGACYHTML5

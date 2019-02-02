@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  * Created by ldchao on 2019/1/15.
  */
 @Entity
-@Table(name = "release", schema = "user_story_mapping")
+@Table(name = "releases", schema = "user_story_mapping")
 public class ReleaseEntity {
     private int id;
     private Integer mid;
