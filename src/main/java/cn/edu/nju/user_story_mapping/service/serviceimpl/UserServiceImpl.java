@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
         } else {
             if (password.equals(user.getPassword())) {
                 // 获取上次登录信息
+                userVO.setId(user.getId());
                 userVO.setUsername(username);
                 userVO.setCode(1);
                 userVO.setLoginMessage("success");
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String changePassword(String id, String oldPassword, String newPassword) {
+    public String changePassword(int id, String oldPassword, String newPassword) {
         UserEntity user = userDao.findOne(id);
         if (oldPassword.equals(user.getPassword())) {
             user.setPassword(newPassword);

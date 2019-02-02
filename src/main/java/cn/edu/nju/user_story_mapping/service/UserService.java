@@ -11,7 +11,7 @@ public interface UserService {
 
     UserVO login(String username, String password);
 
-    String changePassword(String id, String oldPassword, String newPassword);
+    String changePassword(int id, String oldPassword, String newPassword);
 
     String register(String username, String password);
 

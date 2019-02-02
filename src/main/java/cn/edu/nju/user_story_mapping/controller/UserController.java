@@ -24,7 +24,7 @@ public class UserController {
 
     //登录
     @PostMapping(value = "/user/login")
-    public String login(String username, String password, HttpServletRequest request) {
+    public UserVO login(String username, String password, HttpServletRequest request) {
 
         UserVO user = userService.login(username, password);
 
@@ -35,7 +35,7 @@ public class UserController {
             request.getSession().setAttribute("User", user);
         }
         System.out.println("             login happens!"+new Date());
-        return user.getLoginMessage();
+        return user;
     }
 
     //注销
