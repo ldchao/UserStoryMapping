@@ -1,13 +1,10 @@
 package cn.edu.nju.user_story_mapping.service.serviceimpl;
 
 import cn.edu.nju.user_story_mapping.dao.*;
-import cn.edu.nju.user_story_mapping.entity.ActivityEntity;
 import cn.edu.nju.user_story_mapping.entity.MapEntity;
-import cn.edu.nju.user_story_mapping.entity.ReleaseEntity;
+import cn.edu.nju.user_story_mapping.entity.UserEntity;
 import cn.edu.nju.user_story_mapping.entity.UserMapEntity;
-import cn.edu.nju.user_story_mapping.service.ActivityService;
 import cn.edu.nju.user_story_mapping.service.MapService;
-import cn.edu.nju.user_story_mapping.service.ReleaseService;
 import cn.edu.nju.user_story_mapping.vo.MapVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +23,6 @@ public class MapServiceImpl implements MapService {
 
     @Autowired
     private UserMapDao userMapDao;
-
-    @Autowired
-    private ActivityDao activityDao;
-
-    @Autowired
-    private ReleaseDao releaseDao;
 
     @Override
     public MapVO addMap(int userId, String mapTitle, String mapDesc) {
@@ -70,36 +61,14 @@ public class MapServiceImpl implements MapService {
     }
 
     @Override
-    public String deleteMap(int mapId) {
+    public String deleteMap(int userId, int mapId) {
         MapEntity map = mapDao.findOne(mapId);
-        if (map == null) {
+        UserEntity user = userDao.findOne(userId);
+        UserMapEntity userMap = userMapDao.findFirstByUidAndMid(userId, mapId);
+        if ((map == null) || (user == null) || (userMap == null)) {
             return "fail";
         }
-
-        List<UserMapEntity> userMaps = userMapDao.findByMid(mapId);
-        if (userMaps != null && userMaps.size() != 0) {
-            for (UserMapEntity userMap : userMaps) {
-                userMapDao.delete(userMap);
-            }
-        }
-
-        List<ActivityEntity> activities = activityDao.findByMid(mapId);
-        if (activities != null && activities.size() != 0) {
-            ActivityService activityService = new ActivityServiceImpl();
-            for (ActivityEntity activity : activities) {
-                activityService.deleteActivity(activity.getId());
-            }
-        }
-
-        List<ReleaseEntity> releases = releaseDao.findByMid(mapId);
-        if (releases != null && releases.size() != 0) {
-            ReleaseService releaseService = new ReleaseServiceImpl();
-            for (ReleaseEntity release : releases) {
-                releaseService.deleteRelease(release.getId());
-            }
-        }
-
-        mapDao.delete(map);
+        userMapDao.delete(userMap);
         return "success";
     }
 }

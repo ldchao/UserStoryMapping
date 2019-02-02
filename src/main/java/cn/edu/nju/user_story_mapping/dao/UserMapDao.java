@@ -9,9 +9,11 @@ import java.util.List;
 /**
  * Created by ldchao on 2019/1/13.
  */
-public interface UserMapDao extends JpaRepository<UserMapEntity,Serializable> {
+public interface UserMapDao extends JpaRepository<UserMapEntity, Serializable> {
 
     List<UserMapEntity> findByUid(int uid);
 
-    List<UserMapEntity> findByMid(int mid);
+    UserMapEntity findFirstByUidAndMid(int uid, int mid);
+
+
 }

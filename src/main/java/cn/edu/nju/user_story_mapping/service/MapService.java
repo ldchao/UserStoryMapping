@@ -10,5 +10,5 @@ public interface MapService {
 
     ArrayList<MapVO> getMapList(int userId);
 
-    String deleteMap(int mapId);
+    String deleteMap(int userId, int mapId);
 }

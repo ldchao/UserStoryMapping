@@ -25,13 +25,13 @@ public class MapController {
         return mapService.addMap(userId, mapTitle, mapDesc);
     }
 
-    @GetMapping(value="/map/map_list")
-    public ArrayList<MapVO> getMapList(int userId){
+    @GetMapping(value = "/map/map_list")
+    public ArrayList<MapVO> getMapList(int userId) {
         return mapService.getMapList(userId);
     }
 
-    @PostMapping(value="/map/delete_map")
-    public String deleteMap(int mapId){
-        return mapService.deleteMap(mapId);
+    @PostMapping(value = "/map/delete_map")
+    public String deleteMap(int userId, int mapId) {
+        return mapService.deleteMap(userId, mapId);
     }
 }
