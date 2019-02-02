@@ -1,7 +1,6 @@
 package cn.edu.nju.user_story_mapping.vo;
 
 import cn.edu.nju.user_story_mapping.entity.StoryEntity;
-import cn.edu.nju.user_story_mapping.entity.TaskEntity;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -32,5 +31,6 @@ public class StoryVO {
         this.points = storyEntity.getStoryPoints();
         this.state = storyEntity.getState();
         this.createAt = storyEntity.getCreateAt();
+        this.code = 1;
     }
 }
