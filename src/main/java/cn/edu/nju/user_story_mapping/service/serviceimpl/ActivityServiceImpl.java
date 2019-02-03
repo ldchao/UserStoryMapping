@@ -29,6 +29,9 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     TaskDao taskDao;
 
+    @Autowired
+    TaskService taskService;
+
     @Override
     public ActivityVO addActivity(int mid, String title, String desc) {
         MapEntity map = mapDao.findOne(mid);
@@ -65,7 +68,6 @@ public class ActivityServiceImpl implements ActivityService {
         }
         List<TaskEntity> tasks = taskDao.findByAid(aid);
         if (tasks != null) {
-            TaskService taskService = new TaskServiceImpl();
             for (TaskEntity task : tasks) {
                 taskService.deleteTask(task.getId());
             }
