@@ -35,7 +35,7 @@ public class ReleaseServiceImpl implements ReleaseService {
         }
 
         ReleaseEntity release = new ReleaseEntity();
-        release.setDate(date);
+        release.setEndAt(date);
         release.setMid(mid);
         releaseDao.save(release);
 

@@ -20,7 +20,7 @@ public class ReleaseVO {
     public ReleaseVO(ReleaseEntity releaseEntity) {
         this.rid = releaseEntity.getId();
         this.mid = releaseEntity.getMid();
-        this.date = releaseEntity.getDate();
+        this.date = releaseEntity.getEndAt();
         this.code = 1;
     }
 

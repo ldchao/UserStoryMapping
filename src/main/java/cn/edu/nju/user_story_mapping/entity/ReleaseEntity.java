@@ -10,14 +10,15 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Created by ldchao on 2019/1/15.
+ * Created by ldchao on 2019/3/18.
  */
 @Entity
 @Table(name = "releases", schema = "user_story_mapping")
 public class ReleaseEntity {
     private int id;
     private Integer mid;
-    private Timestamp date;
+    private Timestamp startAt;
+    private Timestamp endAt;
 
     @Id
     @Column(name = "id")
@@ -41,13 +42,23 @@ public class ReleaseEntity {
     }
 
     @Basic
-    @Column(name = "date")
-    public Timestamp getDate() {
-        return date;
+    @Column(name = "start_at")
+    public Timestamp getStartAt() {
+        return startAt;
     }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
+    public void setStartAt(Timestamp startAt) {
+        this.startAt = startAt;
+    }
+
+    @Basic
+    @Column(name = "end_at")
+    public Timestamp getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(Timestamp endAt) {
+        this.endAt = endAt;
     }
 
     @Override
@@ -59,7 +70,8 @@ public class ReleaseEntity {
 
         if (id != that.id) return false;
         if (mid != null ? !mid.equals(that.mid) : that.mid != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+        if (startAt != null ? !startAt.equals(that.startAt) : that.startAt != null) return false;
+        if (endAt != null ? !endAt.equals(that.endAt) : that.endAt != null) return false;
 
         return true;
     }
@@ -68,7 +80,8 @@ public class ReleaseEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (mid != null ? mid.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (startAt != null ? startAt.hashCode() : 0);
+        result = 31 * result + (endAt != null ? endAt.hashCode() : 0);
         return result;
     }
 }

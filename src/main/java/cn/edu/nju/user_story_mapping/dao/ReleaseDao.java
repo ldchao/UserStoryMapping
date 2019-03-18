@@ -4,7 +4,6 @@ import cn.edu.nju.user_story_mapping.entity.ReleaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
