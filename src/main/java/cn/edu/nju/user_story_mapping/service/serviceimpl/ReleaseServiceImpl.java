@@ -68,4 +68,20 @@ public class ReleaseServiceImpl implements ReleaseService {
         releaseDao.delete(release);
         return "success";
     }
+
+    @Override
+    public ReleaseVO endRelease(int rid) {
+        ReleaseEntity release = releaseDao.findOne(rid);
+        if (release == null) {
+            return new ReleaseVO();
+        }
+        Timestamp startTime = release.getStartAt();
+        long currentTime = System.currentTimeMillis();
+        if (startTime.getTime() >= currentTime) {
+            return new ReleaseVO();
+        }
+        release.setEndAt(new Timestamp(currentTime));
+        releaseDao.save(release);
+        return new ReleaseVO(release);
+    }
 }

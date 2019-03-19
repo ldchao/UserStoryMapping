@@ -35,4 +35,9 @@ public class ReleaseController {
     public String deleteRelease(int rid) {
         return releaseService.deleteRelease(rid);
     }
+
+    @PostMapping(value = "/release/end_release")
+    public ReleaseVO endRelease(int rid) {
+        return releaseService.endRelease(rid);
+    }
 }

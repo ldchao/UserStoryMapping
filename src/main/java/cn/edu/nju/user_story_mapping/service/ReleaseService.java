@@ -15,4 +15,6 @@ public interface ReleaseService {
     List<ReleaseVO> getReleaseList(int mid);
 
     String deleteRelease(int rid);
+
+    ReleaseVO endRelease(int rid);
 }
