@@ -15,7 +15,7 @@ public class StoryVO {
     private String desc;
     private int points;
     private String state;
-    private Timestamp createAt;
+    private Timestamp updateAt;
     private int code;
 
     public StoryVO() {
@@ -30,7 +30,7 @@ public class StoryVO {
         this.desc = storyEntity.getDescription();
         this.points = storyEntity.getStoryPoints();
         this.state = storyEntity.getState();
-        this.createAt = storyEntity.getCreateAt();
+        this.updateAt = storyEntity.getUpdateAt();
         this.code = 1;
     }
 }

@@ -22,7 +22,7 @@ public class StoryEntity {
     private String description;
     private Integer storyPoints;
     private String state;
-    private Timestamp createAt;
+    private Timestamp updateAt;
 
     @Id
     @Column(name = "id")
@@ -96,13 +96,13 @@ public class StoryEntity {
     }
 
     @Basic
-    @Column(name = "create_at")
-    public Timestamp getCreateAt() {
-        return createAt;
+    @Column(name = "update_at")
+    public Timestamp getUpdateAt() {
+        return updateAt;
     }
 
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
+    public void setUpdateAt(Timestamp updateAt) {
+        this.updateAt = updateAt;
     }
 
     @Override
@@ -119,7 +119,7 @@ public class StoryEntity {
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (storyPoints != null ? !storyPoints.equals(that.storyPoints) : that.storyPoints != null) return false;
         if (state != null ? !state.equals(that.state) : that.state != null) return false;
-        if (createAt != null ? !createAt.equals(that.createAt) : that.createAt != null) return false;
+        if (updateAt != null ? !updateAt.equals(that.updateAt) : that.updateAt != null) return false;
 
         return true;
     }
@@ -133,7 +133,7 @@ public class StoryEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (storyPoints != null ? storyPoints.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
+        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
         return result;
     }
 }

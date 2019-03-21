@@ -50,7 +50,7 @@ public class StoryServiceImpl implements StoryService {
         story.setDescription(desc);
         story.setState(state);
         story.setStoryPoints(points);
-        story.setCreateAt(new Timestamp(new Date().getTime()));
+        story.setUpdateAt(new Timestamp(new Date().getTime()));
         storyDao.save(story);
 
         return new StoryVO(story);
