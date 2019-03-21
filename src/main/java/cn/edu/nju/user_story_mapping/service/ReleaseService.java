@@ -3,6 +3,8 @@ package cn.edu.nju.user_story_mapping.service;
 import cn.edu.nju.user_story_mapping.vo.ReleaseVO;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,4 +19,6 @@ public interface ReleaseService {
     String deleteRelease(int rid);
 
     ReleaseVO endRelease(int rid);
+
+    HashMap<Date,Integer> datePointPair(int rid);
 }

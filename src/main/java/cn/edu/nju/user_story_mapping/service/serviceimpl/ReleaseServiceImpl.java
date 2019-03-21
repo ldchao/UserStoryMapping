@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -83,5 +85,53 @@ public class ReleaseServiceImpl implements ReleaseService {
         release.setEndAt(new Timestamp(currentTime));
         releaseDao.save(release);
         return new ReleaseVO(release);
+    }
+
+    @Override
+    public HashMap<Date, Integer> datePointPair(int rid) {
+        HashMap<Date, Integer> pairs = new HashMap<>();
+        ReleaseEntity release = releaseDao.findOne(rid);
+        if (release == null) {
+            return pairs;
+        }
+
+        List<StoryEntity> stories = storyDao.findByRid(rid);
+        int pointSum = 0;
+        for (StoryEntity story : stories) {
+            pointSum += story.getStoryPoints();
+        }
+
+        Date startDate = new Date(release.getStartAt().getTime());
+        Date endDate = new Date(release.getEndAt().getTime());
+        Date today = new Date(System.currentTimeMillis());
+        if (endDate.after(today)) {
+            endDate = today;
+        }
+
+        ArrayList<Date> dates = new ArrayList<>();
+        ArrayList<Integer> points = new ArrayList<>();
+        dates.add(startDate);
+        points.add(pointSum);
+        Date next = this.nextDay(startDate);
+        while(next.before(endDate)){
+            dates.add(next);
+            points.add(pointSum);
+            next = nextDay(next);
+        }
+
+        for (StoryEntity story : stories) {
+            if(story.getState().equals("done")){
+                
+            }
+        }
+
+
+
+
+        return null;
+    }
+
+    private Date nextDay(Date date) {
+        return new Date(date.getTime() + 24 * 3600 * 1000);
     }
 }

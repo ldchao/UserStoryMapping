@@ -34,5 +34,5 @@ public class EditLogController {
     public List<EditLogVO> getEditLogByMap(int mid) {
         return editLogService.getEditLogByMid(mid);
     }
-    
+
 }

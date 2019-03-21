@@ -13,4 +13,6 @@ public interface StoryDao extends JpaRepository<StoryEntity, Serializable> {
     List<StoryEntity> findByTid(int tid);
 
     List<StoryEntity> findByRid(int rid);
+
+
 }

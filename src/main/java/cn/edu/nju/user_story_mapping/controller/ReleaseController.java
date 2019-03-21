@@ -40,4 +40,9 @@ public class ReleaseController {
     public ReleaseVO endRelease(int rid) {
         return releaseService.endRelease(rid);
     }
+
+    @GetMapping(value = "/release/burn_down_chart")
+    public void burnDownChart(int rid){
+
+    }
 }
