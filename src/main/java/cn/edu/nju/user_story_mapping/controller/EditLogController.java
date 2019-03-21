@@ -25,12 +25,12 @@ public class EditLogController {
         this.editLogService = editLogService;
     }
 
-    @GetMapping(value = "/editlog/getEditLogByUser")
+    @GetMapping(value = "/editlog/get_editlog_user")
     public List<EditLogVO> getEditLogByUser(int uid) {
         return editLogService.getEditLogByUid(uid);
     }
 
-    @GetMapping(value = "/editlog/getEditLogByMap")
+    @GetMapping(value = "/editlog/get_editlog_map")
     public List<EditLogVO> getEditLogByMap(int mid) {
         return editLogService.getEditLogByMid(mid);
     }

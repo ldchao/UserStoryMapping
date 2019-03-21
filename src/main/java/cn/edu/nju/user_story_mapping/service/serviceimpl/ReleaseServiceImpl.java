@@ -113,22 +113,30 @@ public class ReleaseServiceImpl implements ReleaseService {
         dates.add(startDate);
         points.add(pointSum);
         Date next = this.nextDay(startDate);
-        while(next.before(endDate)){
+        while (next.before(endDate)) {
             dates.add(next);
             points.add(pointSum);
             next = nextDay(next);
         }
 
         for (StoryEntity story : stories) {
-            if(story.getState().equals("done")){
-                
+            if (story.getState().equals("done")) {
+                Date doneTime = story.getUpdateAt();
+                for (int i = 0; i < dates.size(); i++) {
+                    if (dates.get(i).after(doneTime)) {
+                        int currentPoints = points.get(i);
+                        currentPoints -= story.getStoryPoints();
+                        points.set(i, currentPoints);
+                    }
+                }
             }
         }
 
+        for (int i = 0; i < dates.size(); i++) {
+            pairs.put(dates.get(i), points.get(i));
+        }
 
-
-
-        return null;
+        return pairs;
     }
 
     private Date nextDay(Date date) {
