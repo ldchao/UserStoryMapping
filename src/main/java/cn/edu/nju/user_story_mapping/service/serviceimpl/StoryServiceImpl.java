@@ -35,14 +35,14 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public StoryVO addStory(int rid, int tid, String title, String desc, String state, int points) {
-//        StoryVO storyVO = new StoryVO();
+        StoryVO storyVO = new StoryVO();
         StoryEntity story = new StoryEntity();
-//        ReleaseEntity release = releaseDao.findOne(rid);
-//        TaskEntity task = taskDao.findOne(tid);
-//        ActivityEntity activity = activityDao.findOne(task.getAid());
-//        if (!activity.getMid().equals(release.getMid())) {
-//            return storyVO;
-//        }
+        ReleaseEntity release = releaseDao.findOne(rid);
+        TaskEntity task = taskDao.findOne(tid);
+        ActivityEntity activity = activityDao.findOne(task.getAid());
+        if (!activity.getMid().equals(release.getMid())) {
+            return storyVO;
+        }
 
         story.setRid(rid);
         story.setTid(tid);
@@ -88,6 +88,9 @@ public class StoryServiceImpl implements StoryService {
 
     private List<StoryVO> EntitiesToVOs(List<StoryEntity> stories) {
         List<StoryVO> storyVOS = new ArrayList<>();
+        if (stories==null){
+            return storyVOS;
+        }
         for (StoryEntity story : stories) {
             storyVOS.add(new StoryVO(story));
         }
