@@ -3,6 +3,8 @@ package cn.edu.nju.user_story_mapping.service;
 
 import cn.edu.nju.user_story_mapping.vo.UserVO;
 
+import java.util.List;
+
 
 /**
  * Created by ldchao on 2017/10/15.
@@ -15,5 +17,5 @@ public interface UserService {
 
     String register(String username, String password);
 
-    boolean invite(int inviterId,int inviteeId,int mapId);
+    List<UserVO> searchUser(String name);
 }

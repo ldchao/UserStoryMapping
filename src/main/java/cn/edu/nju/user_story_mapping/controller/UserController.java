@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ldchao on 2017/10/15.
@@ -60,14 +60,9 @@ public class UserController {
         return userService.register(username, password);
     }
 
-    @GetMapping(value = "/user/invite")
-    public boolean invite(int inviterId, int inviteeId, int mapId) {
-        return userService.invite(inviterId, inviteeId, mapId);
-    }
-
     @GetMapping(value = "/user/search_user")
-    public ArrayList<UserVO> searchUser(String name){
-        return null;
+    public List<UserVO> searchUser(String name) {
+        return userService.searchUser(name);
     }
 
 }

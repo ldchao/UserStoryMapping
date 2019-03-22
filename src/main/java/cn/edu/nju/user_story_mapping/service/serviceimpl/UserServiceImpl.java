@@ -1,12 +1,14 @@
 package cn.edu.nju.user_story_mapping.service.serviceimpl;
 
 import cn.edu.nju.user_story_mapping.dao.UserDao;
-import cn.edu.nju.user_story_mapping.entity.InviteEntity;
 import cn.edu.nju.user_story_mapping.entity.UserEntity;
 import cn.edu.nju.user_story_mapping.service.UserService;
 import cn.edu.nju.user_story_mapping.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ldchao on 2017/10/15.
@@ -61,9 +63,18 @@ public class UserServiceImpl implements UserService {
         return "success";
     }
 
-    @Override
-    public boolean invite(int inviterId, int inviteeId, int mapId) {
-//        InviteEntity invite =
-        return false;
+    public List<UserVO> searchUser(String name) {
+        UserEntity user = userDao.findFirstByUsername(name);
+        List<UserVO> userVOS = new ArrayList<>();
+        if (user != null) {
+            userVOS.add(new UserVO(user));
+        }
+        List<UserEntity> users = userDao.findByUsernameLike("%" + name + "%");
+        if (users != null) {
+            for (UserEntity u : users) {
+                userVOS.add(new UserVO(u));
+            }
+        }
+        return userVOS;
     }
 }
