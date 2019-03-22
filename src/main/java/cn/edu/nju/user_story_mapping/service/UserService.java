@@ -15,4 +15,5 @@ public interface UserService {
 
     String register(String username, String password);
 
+    boolean invite(int inviterId,int inviteeId,int mapId);
 }

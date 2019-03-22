@@ -1,6 +1,7 @@
 package cn.edu.nju.user_story_mapping.service.serviceimpl;
 
 import cn.edu.nju.user_story_mapping.dao.UserDao;
+import cn.edu.nju.user_story_mapping.entity.InviteEntity;
 import cn.edu.nju.user_story_mapping.entity.UserEntity;
 import cn.edu.nju.user_story_mapping.service.UserService;
 import cn.edu.nju.user_story_mapping.vo.UserVO;
@@ -60,4 +61,9 @@ public class UserServiceImpl implements UserService {
         return "success";
     }
 
+    @Override
+    public boolean invite(int inviterId, int inviteeId, int mapId) {
+//        InviteEntity invite =
+        return false;
+    }
 }

@@ -88,7 +88,7 @@ public class StoryServiceImpl implements StoryService {
 
     private List<StoryVO> EntitiesToVOs(List<StoryEntity> stories) {
         List<StoryVO> storyVOS = new ArrayList<>();
-        if (stories==null){
+        if (stories == null) {
             return storyVOS;
         }
         for (StoryEntity story : stories) {

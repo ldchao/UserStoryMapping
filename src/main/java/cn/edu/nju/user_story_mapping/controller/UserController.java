@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -34,7 +35,7 @@ public class UserController {
             request.getSession(true);
             request.getSession().setAttribute("User", user);
         }
-        System.out.println("             login happens!"+new Date());
+        System.out.println("             login happens!" + new Date());
         return user;
     }
 
@@ -57,6 +58,16 @@ public class UserController {
     @PostMapping(value = "/user/register")
     public String register(String username, String password) {
         return userService.register(username, password);
+    }
+
+    @GetMapping(value = "/user/invite")
+    public boolean invite(int inviterId, int inviteeId, int mapId) {
+        return userService.invite(inviterId, inviteeId, mapId);
+    }
+
+    @GetMapping(value = "/user/search_user")
+    public ArrayList<UserVO> searchUser(String name){
+        return null;
     }
 
 }

@@ -44,7 +44,7 @@ public class EditLogServiceImpl implements EditLogService {
         if (user == null) {
             return editLogVOS;
         }
-        List<EditLogEntity> editLogs = editLogDao.findByMid(uid);
+        List<EditLogEntity> editLogs = editLogDao.findByUid(uid);
         return this.EntitiesToVOs(editLogs);
     }
 
