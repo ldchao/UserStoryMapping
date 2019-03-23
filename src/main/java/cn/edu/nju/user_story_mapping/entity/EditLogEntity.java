@@ -7,12 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 /**
- * Created by ldchao on 2019/3/18.
+ * Created by ldchao on 2019/3/23.
  */
 @Entity
-@Table(name = "edit_log", schema = "user_story_mapping")
+@Table(name = "edit_log", schema = "user_story_mapping", catalog = "")
 public class EditLogEntity {
     private int id;
     private Integer uid;
@@ -20,6 +21,7 @@ public class EditLogEntity {
     private String type;
     private Integer itemId;
     private String desc;
+    private Timestamp editAt;
 
     @Id
     @Column(name = "id")
@@ -82,6 +84,16 @@ public class EditLogEntity {
         this.desc = desc;
     }
 
+    @Basic
+    @Column(name = "edit_at")
+    public Timestamp getEditAt() {
+        return editAt;
+    }
+
+    public void setEditAt(Timestamp editAt) {
+        this.editAt = editAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,6 +107,7 @@ public class EditLogEntity {
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (itemId != null ? !itemId.equals(that.itemId) : that.itemId != null) return false;
         if (desc != null ? !desc.equals(that.desc) : that.desc != null) return false;
+        if (editAt != null ? !editAt.equals(that.editAt) : that.editAt != null) return false;
 
         return true;
     }
@@ -107,6 +120,7 @@ public class EditLogEntity {
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (itemId != null ? itemId.hashCode() : 0);
         result = 31 * result + (desc != null ? desc.hashCode() : 0);
+        result = 31 * result + (editAt != null ? editAt.hashCode() : 0);
         return result;
     }
 }
