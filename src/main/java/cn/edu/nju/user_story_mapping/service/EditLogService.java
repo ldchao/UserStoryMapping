@@ -9,4 +9,6 @@ public interface EditLogService {
     List<EditLogVO> getEditLogByUid(int uid);
 
     List<EditLogVO> getEditLogByMid(int mid);
+
+    EditLogVO addEditLog(int uid, int mid, String type, int itemId, String desc);
 }

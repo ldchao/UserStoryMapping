@@ -59,4 +59,18 @@ public class EditLogServiceImpl implements EditLogService {
         return editLogVOS;
     }
 
+    @Override
+    public EditLogVO addEditLog(int uid, int mid, String type, int itemId, String desc) {
+        if ((userDao.findOne(uid) == null) || (mapDao.findOne(mid) == null)) {
+            return new EditLogVO();
+        }
+        EditLogEntity editLog = new EditLogEntity();
+        editLog.setUid(uid);
+        editLog.setMid(mid);
+        editLog.setType(type);
+        editLog.setItemId(itemId);
+        editLog.setDesc(desc);
+        editLogDao.save(editLog);
+        return new EditLogVO(editLog);
+    }
 }

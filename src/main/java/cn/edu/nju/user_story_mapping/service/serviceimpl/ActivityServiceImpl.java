@@ -2,7 +2,6 @@ package cn.edu.nju.user_story_mapping.service.serviceimpl;
 
 import cn.edu.nju.user_story_mapping.dao.ActivityDao;
 import cn.edu.nju.user_story_mapping.dao.MapDao;
-import cn.edu.nju.user_story_mapping.dao.StoryDao;
 import cn.edu.nju.user_story_mapping.dao.TaskDao;
 import cn.edu.nju.user_story_mapping.entity.ActivityEntity;
 import cn.edu.nju.user_story_mapping.entity.MapEntity;

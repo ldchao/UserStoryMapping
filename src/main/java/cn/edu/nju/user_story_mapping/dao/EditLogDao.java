@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by ldchao on 2019/1/13.
  */
-public interface EditLogDao extends JpaRepository<EditLogDao, Serializable> {
+public interface EditLogDao extends JpaRepository<EditLogEntity, Serializable> {
 
     List<EditLogEntity> findByUid(int uid);
 
