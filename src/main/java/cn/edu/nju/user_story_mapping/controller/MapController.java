@@ -34,4 +34,9 @@ public class MapController {
     public String deleteMap(int userId, int mapId) {
         return mapService.deleteMap(userId, mapId);
     }
+
+    @GetMapping(value = "/map/get_map")
+    public MapVO getMap(int mid) {
+        return mapService.getMap(mid);
+    }
 }

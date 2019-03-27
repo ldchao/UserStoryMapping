@@ -77,4 +77,13 @@ public class UserServiceImpl implements UserService {
         }
         return userVOS;
     }
+
+    @Override
+    public UserVO getUser(int uid) {
+        UserEntity user = userDao.findOne(uid);
+        if (user == null) {
+            return new UserVO();
+        }
+        return new UserVO(user);
+    }
 }

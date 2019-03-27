@@ -1,13 +1,20 @@
 package cn.edu.nju.user_story_mapping;
 
+import cn.edu.nju.user_story_mapping.dao.ActivityDao;
 import cn.edu.nju.user_story_mapping.dao.EditLogDao;
+import cn.edu.nju.user_story_mapping.dao.ReleaseDao;
+import cn.edu.nju.user_story_mapping.dao.TaskDao;
+import cn.edu.nju.user_story_mapping.entity.EditLogEntity;
+import cn.edu.nju.user_story_mapping.entity.UserEntity;
+import cn.edu.nju.user_story_mapping.vo.ActivityVO;
+import cn.edu.nju.user_story_mapping.vo.ReleaseVO;
+import cn.edu.nju.user_story_mapping.vo.StoryVO;
+import cn.edu.nju.user_story_mapping.vo.TaskVO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,7 +31,28 @@ public class EditLogAspect {
     @Autowired
     private EditLogDao editLogDao;
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    @Autowired
+    private ReleaseDao releaseDao;
+
+    @Autowired
+    private ActivityDao activityDao;
+
+    @Autowired
+    private TaskDao taskDao;
+
+    private int uid = -1;
+
+    private int mid = -1;
+
+    private String type = "";
+
+    private int itemId = -1;
+
+    private String desc = "";
+
+    private Timestamp updateAt = null;
+
+    private boolean needLog = true;
 
     @Pointcut("execution(public * cn.edu.nju.user_story_mapping.controller..*.*(..))")
     public void webLog() {
@@ -35,39 +63,94 @@ public class EditLogAspect {
     public void doBefore(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-//        logger.info("URL : " + request.getRequestURL().toString());
-//        logger.info("HTTP_METHOD : " + request.getMethod());
-//        Enumeration<String> enu = request.getParameterNames();
-//        while (enu.hasMoreElements()) {
-//            String name = enu.nextElement();
-//            logger.info("name:{},value:{}", name, request.getParameter(name));
-//        }
-
-        if (request.getMethod().equals("POST")) {
-            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            String url = request.getRequestURL().toString();
-            String[] urlDivided = url.split("/");
-            if (urlDivided.length < 2) {
-                return;
-            }
-            String type = urlDivided[urlDivided.length - 2];
-            if (type.equals("release")) {
-                Enumeration<String> enu = request.getParameterNames();
-                while (enu.hasMoreElements()) {
-                    String name = enu.nextElement();
-
-                    logger.info("name:{},value:{}", name, request.getParameter(name));
-                }
-
-            }
-
-
+        if (!request.getMethod().equals("POST")) {
+            this.needLog = false;
+            return;
         }
+
+
+        String url = request.getRequestURL().toString();
+        String[] urlDivided = url.split("/");
+        if (urlDivided.length < 2) {
+            this.needLog = false;
+            return;
+        }
+        this.type = urlDivided[urlDivided.length - 2];
+        if ((!this.type.equals("release")) && (!this.type.equals("task")) && (!this.type.equals("activity")) && (!this.type.equals("story"))) {
+            this.needLog = false;
+        }
+
+
+        this.desc = urlDivided[urlDivided.length - 1];
+
+
+        UserEntity user = (UserEntity) request.getSession(false).getAttribute("User");
+        this.uid = user.getId();
+
+
+        Enumeration<String> enu = request.getParameterNames();
+        while (enu.hasMoreElements()) {
+            String name = enu.nextElement();
+            if (name.equals("mid")) {
+                this.mid = Integer.parseInt(request.getParameter(name));
+            }
+            if (name.equals("rid")) {
+                this.mid = releaseDao.findOne(Integer.parseInt(request.getParameter(name))).getMid();
+                if (this.type.equals("release")) {
+                    this.itemId = Integer.parseInt(request.getParameter(name));
+                }
+            }
+            if (name.equals("aid")) {
+                this.mid = activityDao.findOne(Integer.parseInt(request.getParameter(name))).getMid();
+                if (this.type.equals("activity")) {
+                    this.itemId = Integer.parseInt(request.getParameter(name));
+                }
+            }
+            if (name.equals("tid")) {
+                int aid = taskDao.findOne(Integer.parseInt(request.getParameter(name))).getAid();
+                this.mid = activityDao.findOne(aid).getMid();
+                if (this.type.equals("task")) {
+                    this.itemId = Integer.parseInt(request.getParameter(name));
+                }
+            }
+            if (name.equals("story") && this.type.equals("story")) {
+                this.itemId = Integer.parseInt(request.getParameter(name));
+            }
+        }
+
     }
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) throws Throwable {
-        // 处理完请求，返回内容
-        logger.info("RESPONSE : " + ret);
+        if (!this.needLog) {
+            return;
+        }
+        if (this.type.equals("add")) {
+            if (ret instanceof StoryVO) {
+                this.itemId = ((StoryVO) ret).getSid();
+            }
+            if (ret instanceof ActivityVO) {
+                this.itemId = ((ActivityVO) ret).getAid();
+            }
+            if (ret instanceof TaskVO) {
+                this.itemId = ((TaskVO) ret).getTid();
+            }
+            if (ret instanceof ReleaseVO) {
+                this.itemId = ((ReleaseVO) ret).getRid();
+            }
+        }
+
+
+        this.updateAt = new Timestamp(System.currentTimeMillis());
+
+
+        EditLogEntity editLog = new EditLogEntity();
+        editLog.setUid(this.uid);
+        editLog.setMid(this.mid);
+        editLog.setItemId(this.itemId);
+        editLog.setType(this.type);
+        editLog.setEditAt(this.updateAt);
+        editLog.setDesc(this.desc);
+        editLogDao.save(editLog);
     }
 }

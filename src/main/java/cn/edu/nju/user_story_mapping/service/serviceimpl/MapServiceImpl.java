@@ -1,6 +1,8 @@
 package cn.edu.nju.user_story_mapping.service.serviceimpl;
 
-import cn.edu.nju.user_story_mapping.dao.*;
+import cn.edu.nju.user_story_mapping.dao.MapDao;
+import cn.edu.nju.user_story_mapping.dao.UserDao;
+import cn.edu.nju.user_story_mapping.dao.UserMapDao;
 import cn.edu.nju.user_story_mapping.entity.MapEntity;
 import cn.edu.nju.user_story_mapping.entity.UserEntity;
 import cn.edu.nju.user_story_mapping.entity.UserMapEntity;
@@ -70,5 +72,14 @@ public class MapServiceImpl implements MapService {
         }
         userMapDao.delete(userMap);
         return "success";
+    }
+
+    @Override
+    public MapVO getMap(int mid) {
+        MapEntity map = mapDao.findOne(mid);
+        if (map == null) {
+            return new MapVO();
+        }
+        return new MapVO(map);
     }
 }

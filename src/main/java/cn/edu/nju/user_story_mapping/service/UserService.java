@@ -18,4 +18,6 @@ public interface UserService {
     String register(String username, String password);
 
     List<UserVO> searchUser(String name);
+
+    UserVO getUser(int uid);
 }

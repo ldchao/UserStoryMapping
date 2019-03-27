@@ -1,8 +1,6 @@
 package cn.edu.nju.user_story_mapping.controller;
 
-import cn.edu.nju.user_story_mapping.service.MapService;
 import cn.edu.nju.user_story_mapping.service.TaskService;
-import cn.edu.nju.user_story_mapping.vo.MapVO;
 import cn.edu.nju.user_story_mapping.vo.TaskVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -1,9 +1,7 @@
 package cn.edu.nju.user_story_mapping.controller;
 
 import cn.edu.nju.user_story_mapping.service.ActivityService;
-import cn.edu.nju.user_story_mapping.service.TaskService;
 import cn.edu.nju.user_story_mapping.vo.ActivityVO;
-import cn.edu.nju.user_story_mapping.vo.TaskVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

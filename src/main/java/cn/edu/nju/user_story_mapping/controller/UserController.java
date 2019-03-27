@@ -35,7 +35,7 @@ public class UserController {
             request.getSession(true);
             request.getSession().setAttribute("User", user);
         }
-        System.out.println("             login happens!" + new Date());
+        System.out.println("login happens!" + new Date());
         return user;
     }
 
@@ -63,6 +63,11 @@ public class UserController {
     @GetMapping(value = "/user/search_user")
     public List<UserVO> searchUser(String name) {
         return userService.searchUser(name);
+    }
+
+    @GetMapping(value="/user/get_user")
+    public UserVO getUser(int uid){
+        return userService.getUser(uid);
     }
 
 }

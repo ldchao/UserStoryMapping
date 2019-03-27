@@ -23,7 +23,7 @@ public class UserVO implements Serializable {
     }
 
     public UserVO() {
-
+        this.code = 0;
     }
 
 }
