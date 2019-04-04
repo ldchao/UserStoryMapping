@@ -78,6 +78,7 @@ public class EditLogAspect {
         this.type = urlDivided[urlDivided.length - 2];
         if ((!this.type.equals("release")) && (!this.type.equals("task")) && (!this.type.equals("activity")) && (!this.type.equals("story"))) {
             this.needLog = false;
+            return;
         }
 
 
