@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true")
 public class MapController {
     private final MapService mapService;
 

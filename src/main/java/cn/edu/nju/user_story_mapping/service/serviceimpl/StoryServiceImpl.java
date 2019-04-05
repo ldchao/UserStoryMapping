@@ -37,12 +37,12 @@ public class StoryServiceImpl implements StoryService {
     public StoryVO addStory(int rid, int tid, String title, String desc, String state, int points) {
         StoryVO storyVO = new StoryVO();
         StoryEntity story = new StoryEntity();
-        ReleaseEntity release = releaseDao.findOne(rid);
+//        ReleaseEntity release = releaseDao.findOne(rid);
         TaskEntity task = taskDao.findOne(tid);
         ActivityEntity activity = activityDao.findOne(task.getAid());
-        if (!activity.getMid().equals(release.getMid())) {
-            return storyVO;
-        }
+//        if (!activity.getMid().equals(release.getMid())) {
+//            return storyVO;
+//        }
 
         story.setRid(rid);
         story.setTid(tid);

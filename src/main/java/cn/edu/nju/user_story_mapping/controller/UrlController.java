@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Created by ldchao on 2018/5/7.
  */
 @Controller
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true")
 public class UrlController {
 
     @GetMapping("/")

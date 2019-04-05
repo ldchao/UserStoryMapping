@@ -13,7 +13,7 @@ import java.util.List;
  * Created by ldchao on 2017/10/15.
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true")
 public class UserController {
 
     private final UserService userService;

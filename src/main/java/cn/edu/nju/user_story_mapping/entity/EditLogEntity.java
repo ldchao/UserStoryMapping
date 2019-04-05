@@ -75,7 +75,7 @@ public class EditLogEntity {
     }
 
     @Basic
-    @Column(name = "desc")
+    @Column(name = "description")
     public String getDesc() {
         return desc;
     }
