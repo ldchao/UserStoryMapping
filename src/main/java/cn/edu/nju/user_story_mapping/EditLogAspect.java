@@ -6,10 +6,7 @@ import cn.edu.nju.user_story_mapping.dao.ReleaseDao;
 import cn.edu.nju.user_story_mapping.dao.TaskDao;
 import cn.edu.nju.user_story_mapping.entity.EditLogEntity;
 import cn.edu.nju.user_story_mapping.entity.UserEntity;
-import cn.edu.nju.user_story_mapping.vo.ActivityVO;
-import cn.edu.nju.user_story_mapping.vo.ReleaseVO;
-import cn.edu.nju.user_story_mapping.vo.StoryVO;
-import cn.edu.nju.user_story_mapping.vo.TaskVO;
+import cn.edu.nju.user_story_mapping.vo.*;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -82,11 +79,12 @@ public class EditLogAspect {
         }
 
 
+        this.needLog = true;
         this.desc = urlDivided[urlDivided.length - 1];
 
 
-        UserEntity user = (UserEntity) request.getSession(false).getAttribute("User");
-        this.uid = user.getId();
+        UserVO userVO = (UserVO) request.getSession(false).getAttribute("User");
+        this.uid = userVO.getId();
 
 
         Enumeration<String> enu = request.getParameterNames();
