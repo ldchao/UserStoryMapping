@@ -126,7 +126,8 @@ public class EditLogAspect {
         if (!this.needLog) {
             return;
         }
-        if (this.type.equals("add")) {
+
+        if (this.itemId == -1) {
             if (ret instanceof StoryVO) {
                 this.itemId = ((StoryVO) ret).getSid();
             }
