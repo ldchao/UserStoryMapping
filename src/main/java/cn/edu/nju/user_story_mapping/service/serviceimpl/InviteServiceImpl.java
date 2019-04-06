@@ -2,8 +2,10 @@ package cn.edu.nju.user_story_mapping.service.serviceimpl;
 
 import cn.edu.nju.user_story_mapping.dao.InviteDao;
 import cn.edu.nju.user_story_mapping.dao.UserDao;
+import cn.edu.nju.user_story_mapping.dao.UserMapDao;
 import cn.edu.nju.user_story_mapping.entity.InviteEntity;
 import cn.edu.nju.user_story_mapping.entity.UserEntity;
+import cn.edu.nju.user_story_mapping.entity.UserMapEntity;
 import cn.edu.nju.user_story_mapping.service.InviteService;
 import cn.edu.nju.user_story_mapping.vo.InviteVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class InviteServiceImpl implements InviteService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserMapDao userMapDao;
 
     @Override
     public InviteVO invite(int inviterId, int inviteeId, int mapId) {
@@ -64,6 +69,10 @@ public class InviteServiceImpl implements InviteService {
         }
         invite.setState(answer);
         inviteDao.save(invite);
+        UserMapEntity userMap = new UserMapEntity();
+        userMap.setUid(invite.getInviteeId());
+        userMap.setMid(invite.getMid());
+        userMapDao.save(userMap);
         return new InviteVO(invite);
     }
 
