@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Service
 public class ReleaseServiceImpl implements ReleaseService {
@@ -27,7 +30,7 @@ public class ReleaseServiceImpl implements ReleaseService {
     private StoryDao storyDao;
 
     @Override
-    public ReleaseVO addRelease(int mid, Timestamp startAt,Timestamp endAt) {
+    public ReleaseVO addRelease(int mid, Timestamp startAt, Timestamp endAt) {
         MapEntity map = mapDao.findOne(mid);
         if (map == null) {
             return new ReleaseVO();
@@ -136,7 +139,7 @@ public class ReleaseServiceImpl implements ReleaseService {
             dates.get(i).setSeconds(0);
         }
 
-        for (int i = 0; i < dates.size(); i++) {
+        for (int i = dates.size() - 1; i >= 0; i--) {
             pairs.put(dates.get(i), points.get(i));
         }
 
