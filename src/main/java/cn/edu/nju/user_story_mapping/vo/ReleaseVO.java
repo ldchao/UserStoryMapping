@@ -10,7 +10,8 @@ public class ReleaseVO {
 
     private int rid;
     private int mid;
-    private Timestamp date;
+    private Timestamp endAt;
+    private Timestamp startAt;
     private int code;
 
     public ReleaseVO() {
@@ -20,7 +21,8 @@ public class ReleaseVO {
     public ReleaseVO(ReleaseEntity releaseEntity) {
         this.rid = releaseEntity.getId();
         this.mid = releaseEntity.getMid();
-        this.date = releaseEntity.getEndAt();
+        this.startAt = releaseEntity.getStartAt();
+        this.endAt = releaseEntity.getEndAt();
         this.code = 1;
     }
 

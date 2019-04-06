@@ -30,14 +30,15 @@ public class ReleaseServiceImpl implements ReleaseService {
     private StoryDao storyDao;
 
     @Override
-    public ReleaseVO addRelease(int mid, Timestamp date) {
+    public ReleaseVO addRelease(int mid, Timestamp startAt,Timestamp endAt) {
         MapEntity map = mapDao.findOne(mid);
         if (map == null) {
             return new ReleaseVO();
         }
 
         ReleaseEntity release = new ReleaseEntity();
-        release.setEndAt(date);
+        release.setStartAt(startAt);
+        release.setEndAt(endAt);
         release.setMid(mid);
         releaseDao.save(release);
 

@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ReleaseService {
 
-    ReleaseVO addRelease(int mid, Timestamp date);
+    ReleaseVO addRelease(int mid, Timestamp startAt,Timestamp endAt);
 
     List<ReleaseVO> getReleaseList(int mid);
 

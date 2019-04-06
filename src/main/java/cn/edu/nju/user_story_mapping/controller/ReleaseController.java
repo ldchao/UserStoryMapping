@@ -24,8 +24,8 @@ public class ReleaseController {
     }
 
     @PostMapping(value = "/release/add_release")
-    public ReleaseVO addRelease(Timestamp date, int mid) {
-        return releaseService.addRelease(mid, date);
+    public ReleaseVO addRelease(Long startAt,Long endAt, int mid) {
+        return releaseService.addRelease(mid, new Timestamp(startAt),new Timestamp(endAt));
     }
 
     @GetMapping(value = "/release/get_release")

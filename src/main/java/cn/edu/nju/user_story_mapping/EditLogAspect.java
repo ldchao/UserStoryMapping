@@ -100,12 +100,12 @@ public class EditLogAspect {
             if (name.equals("mid")) {
                 this.mid = Integer.parseInt(request.getParameter(name));
             }
-//            if (name.equals("rid")) {
-//                this.mid = releaseDao.findOne(Integer.parseInt(request.getParameter(name))).getMid();
-//                if (this.type.equals("release")) {
-//                    this.itemId = Integer.parseInt(request.getParameter(name));
-//                }
-//            }
+            if (name.equals("rid")) {
+                this.mid = releaseDao.findOne(Integer.parseInt(request.getParameter(name))).getMid();
+                if (this.type.equals("release")) {
+                    this.itemId = Integer.parseInt(request.getParameter(name));
+                }
+            }
             if (name.equals("aid")) {
                 this.mid = activityDao.findOne(Integer.parseInt(request.getParameter(name))).getMid();
                 if (this.type.equals("activity")) {
