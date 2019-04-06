@@ -45,10 +45,7 @@ public class ReleaseController {
     }
 
     @GetMapping(value = "/release/burn_down_chart")
-    public LinkedHashMap<Date, Integer> burnDownChart(int rid) {
-        LinkedHashMap<Date, Integer> pairs = releaseService.datePointPair(rid);
-
-        return null;
-
+    public LinkedHashMap<String, Integer> burnDownChart(int rid) {
+        return releaseService.datePointPair(rid);
     }
 }

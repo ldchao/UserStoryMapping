@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -89,8 +90,8 @@ public class ReleaseServiceImpl implements ReleaseService {
     }
 
     @Override
-    public LinkedHashMap<Date, Integer> datePointPair(int rid) {
-        LinkedHashMap<Date, Integer> pairs = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> datePointPair(int rid) {
+        LinkedHashMap<String, Integer> pairs = new LinkedHashMap<>();
         ReleaseEntity release = releaseDao.findOne(rid);
         if (release == null) {
             return pairs;
@@ -133,14 +134,12 @@ public class ReleaseServiceImpl implements ReleaseService {
             }
         }
 
-        for (int i = 0; i < dates.size(); i++) {
-            dates.get(i).setHours(0);
-            dates.get(i).setMinutes(0);
-            dates.get(i).setSeconds(0);
-        }
 
-        for (int i = dates.size() - 1; i >= 0; i--) {
-            pairs.put(dates.get(i), points.get(i));
+        for (int i = 0; i < dates.size(); i++) {
+
+            String s = DateFormat.getDateInstance(DateFormat.MEDIUM).format(dates.get(i));
+            pairs.put(s, points.get(i));
+
         }
 
         return pairs;

@@ -21,5 +21,5 @@ public interface ReleaseService {
 
     ReleaseVO endRelease(int rid);
 
-    LinkedHashMap<Date,Integer> datePointPair(int rid);
+    LinkedHashMap<String,Integer> datePointPair(int rid);
 }
