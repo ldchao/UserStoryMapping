@@ -14,6 +14,4 @@ public interface UserDao extends JpaRepository<UserEntity,Serializable> {
 
     List<UserEntity> findByUsernameLike(String name);
 
-    @Query(value = "select u.username from UserEntity u")
-    List<String> findAllUsername();
 }

@@ -70,10 +70,6 @@ public class UserController {
         return userService.getUser(uid);
     }
 
-    @GetMapping(value = "/user/get_username_list")
-    public List<String> getUsernameList() {
-        return userService.getUsernameList();
-    }
 
 
 }

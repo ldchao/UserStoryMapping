@@ -19,7 +19,5 @@ public interface UserService {
 
     List<UserVO> searchUser(String name);
 
-    List<String> getUsernameList();
-
     UserVO getUser(int uid);
 }

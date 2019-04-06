@@ -31,7 +31,7 @@ public class InviteServiceImpl implements InviteService {
         invite.setInviterId(inviterId);
         invite.setInviteeId(inviteeId);
         invite.setMid(mapId);
-        invite.setState("unanswered");
+        invite.setState("unprocessed");
         inviteDao.save(invite);
         return new InviteVO(invite);
     }
@@ -59,7 +59,7 @@ public class InviteServiceImpl implements InviteService {
     @Override
     public InviteVO answerInvite(int inviteId, String answer) {
         InviteEntity invite = inviteDao.findOne(inviteId);
-        if (invite == null || (!invite.getState().equals("unanswered"))) {
+        if (invite == null || (!invite.getState().equals("unprocessed"))) {
             return new InviteVO();
         }
         invite.setState(answer);
