@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
@@ -44,7 +45,10 @@ public class ReleaseController {
     }
 
     @GetMapping(value = "/release/burn_down_chart")
-    public HashMap<Date, Integer> burnDownChart(int rid) {
-        return releaseService.datePointPair(rid);
+    public LinkedHashMap<Date, Integer> burnDownChart(int rid) {
+        LinkedHashMap<Date, Integer> pairs = releaseService.datePointPair(rid);
+
+        return null;
+
     }
 }

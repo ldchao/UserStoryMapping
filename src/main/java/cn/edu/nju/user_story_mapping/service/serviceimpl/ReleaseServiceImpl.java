@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ReleaseServiceImpl implements ReleaseService {
@@ -89,8 +86,8 @@ public class ReleaseServiceImpl implements ReleaseService {
     }
 
     @Override
-    public HashMap<Date, Integer> datePointPair(int rid) {
-        HashMap<Date, Integer> pairs = new HashMap<>();
+    public LinkedHashMap<Date, Integer> datePointPair(int rid) {
+        LinkedHashMap<Date, Integer> pairs = new LinkedHashMap<>();
         ReleaseEntity release = releaseDao.findOne(rid);
         if (release == null) {
             return pairs;
@@ -131,6 +128,12 @@ public class ReleaseServiceImpl implements ReleaseService {
                     }
                 }
             }
+        }
+
+        for (int i = 0; i < dates.size(); i++) {
+            dates.get(i).setHours(0);
+            dates.get(i).setMinutes(0);
+            dates.get(i).setSeconds(0);
         }
 
         for (int i = 0; i < dates.size(); i++) {

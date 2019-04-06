@@ -5,6 +5,7 @@ import cn.edu.nju.user_story_mapping.vo.ReleaseVO;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -20,5 +21,5 @@ public interface ReleaseService {
 
     ReleaseVO endRelease(int rid);
 
-    HashMap<Date,Integer> datePointPair(int rid);
+    LinkedHashMap<Date,Integer> datePointPair(int rid);
 }
