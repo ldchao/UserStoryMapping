@@ -22,7 +22,7 @@ public class StoryController {
 
     @PostMapping(value = "/story/add_story")
     public StoryVO addStory(int rid, int tid, String title, String desc, int points) {
-        return storyService.addStory(rid, tid, title, desc, "not start", points);
+        return storyService.addStory(rid, tid, title, desc, "undo", points);
     }
 
     @GetMapping(value = "/story/get_story_task")

@@ -5,7 +5,6 @@ import cn.edu.nju.user_story_mapping.dao.EditLogDao;
 import cn.edu.nju.user_story_mapping.dao.ReleaseDao;
 import cn.edu.nju.user_story_mapping.dao.TaskDao;
 import cn.edu.nju.user_story_mapping.entity.EditLogEntity;
-import cn.edu.nju.user_story_mapping.entity.UserEntity;
 import cn.edu.nju.user_story_mapping.vo.*;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -58,6 +57,14 @@ public class EditLogAspect {
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) {
+        this.uid = -1;
+        this.mid = -1;
+        this.type = "";
+        this.itemId = -1;
+        this.desc = "";
+        this.updateAt = null;
+        this.needLog = true;
+
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         if (!request.getMethod().equals("POST")) {
