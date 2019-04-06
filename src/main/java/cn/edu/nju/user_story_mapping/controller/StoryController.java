@@ -36,8 +36,8 @@ public class StoryController {
     }
 
     @PostMapping(value = "/story/update_story")
-    public StoryVO updateStory(int sid, int tid, int rid, String title, String desc, int points, String state) {
-        return storyService.updateStory(sid, tid, rid, title, desc, points, state);
+    public StoryVO updateStory(int sid, String title, String desc, int points, String state) {
+        return storyService.updateStory(sid, title, desc, points, state);
     }
 
     @PostMapping(value = "/story/delete_story")

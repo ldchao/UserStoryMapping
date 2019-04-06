@@ -98,13 +98,17 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
-    public StoryVO updateStory(int sid, int tid, int rid, String title, String desc, int points, String state) {
+    public StoryVO updateStory(int sid, String title, String desc, int points, String state) {
         StoryEntity story = storyDao.findOne(sid);
         if (story == null) {
             return new StoryVO();
         }
-        storyDao.delete(sid);
-        return this.addStory(rid, tid, title, desc, state, points);
+        story.setTitle(title);
+        story.setDescription(desc);
+        story.setStoryPoints(points);
+        story.setState(state);
+        storyDao.save(story);
+        return new StoryVO(story);
     }
 
     @Override

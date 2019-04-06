@@ -15,7 +15,7 @@ public interface StoryService {
 
     List<StoryVO> getStoryByRelease(int rid);
 
-    StoryVO updateStory(int sid, int tid, int rid, String title, String desc, int points, String state);
+    StoryVO updateStory(int sid, String title, String desc, int points, String state);
 
     String deleteStory(int sid);
 }
